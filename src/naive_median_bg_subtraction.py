@@ -107,8 +107,13 @@ def naive_median_bg_subtraction(path: str, N: int = 30, interval: float = None) 
             print(f"Recalculating background frame at video time {elapsed_video_time_str}, after interval of {interval:.2f} seconds...")
             recalculating_start_time = time.time()
             
+            # Randomly select N frames from the video
             selected_frames_array = select_random_frames(capture, total_frames, N)
+            
+            # Calculate the median background frame
             median_background = np.median(selected_frames_array, axis=0).astype(np.uint8)
+            
+            # Set the next background update time
             next_bg_update_time = current_time + interval
             
             recalculating_end_time = time.time()
